@@ -3,12 +3,24 @@ package com.revolut.sinap.proto.json;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+/**
+ * Payment request source/destination account information
+ */
 @JsonSerialize
 public class Account {
+    /**
+     * unique account id
+     */
     @JsonProperty(required = true)
     private long id;
+    /**
+     * Currency ISO 4217 code (3-letter)
+     */
     @JsonProperty(required = true)
     private String currency;
+    /**
+     * ',' or '.' - separated operation amount in major units
+     */
     @JsonProperty(required = true)
     private String amount;
 

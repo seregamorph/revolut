@@ -1,10 +1,16 @@
 package com.revolut.sinap.proto.json;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
 public class PaymentResponse {
+    /**
+     * result code
+     */
+    @JsonProperty(required = true)
     private int result;
+    @JsonProperty(required = true)
     private String message;
 
     public PaymentResponse setResult(int result) {
