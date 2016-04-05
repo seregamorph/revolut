@@ -10,10 +10,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-
-    <artifactId>revolut-sinap-proto</artifactId>
+    <artifactId>revolut-sinap-api</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
     </dependencies>
 </project>
