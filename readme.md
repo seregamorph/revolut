@@ -16,3 +16,34 @@ Implicit requirements:
 * there are no detailed requirements, use common sense.
 
 Please put your work on github or bitbucket.
+
+Key issues
+------------
+sinap is a recursive acronym that means "SINAP is not a processing". This name is not my idea, one of a QIWI hackathon projects was called so.
+
+* Simplicity, reliablility, explicitness.
+* Prevent payment duplicates
+* diagnostics
+* externability
+* stateless (REST)
+
+Technology stack
+------------
+I'd prefer to implement task on jetty-embedded/jetty-standalone/tomcat + spring-di + spring-webmvc + spring-web(RestTemplate).
+But condition says: no spring, standalone.
+The chosen technologies:
+* Netty + basic http server
+* Guice
+* Apache http client (for test)
+* Jackson
+
+Project structure
+------------
+* sinap-api is a module with json declarations of the protocol. It can be exported to a public project for integration purposes.
+* sinap-netty is a basic http server with lifecycle and helpers
+* sinap-payment is a dummy in-memory processing core
+* sinap-server is distribution module
+
+TODO list
+------------
+* maven wrapper
