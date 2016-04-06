@@ -18,10 +18,11 @@ Please put your work on github or bitbucket.
 
 Key issues
 ------------
-sinap is a recursive acronym that means "SINAP is not a processing".
+SINAP is a recursive acronym that means "SINAP is not a processing".
 This name is not my idea, one of a QIWI hackathon projects was called so.
 
-* Simplicity, reliablility, explicitness.
+* Simplicity, reliability, explicitness
+* self-documenting source code
 * Prevent payment duplicates
 * diagnostics
 * externability
@@ -36,12 +37,12 @@ But condition says: no spring, standalone.
 The chosen technologies:
 * Netty + basic http server
 * Guice
-* Apache http client (for test)
+* Apache http client (for tests)
 * Jackson
 
 Code style
 ------------
-Project uses non-javabeans code style everywhere where available (e.g. jackson by default requires javabeans convention).
+Project uses non-javabeans code style everywhere where available (e.g. jackson by default requires javabeans convention for json objects).
 Inspired by Jackson and Netty API, most setters return ```this``` object and have no ```set``` prefix, getters have no ```get``` prefix.
 
 Project structure
