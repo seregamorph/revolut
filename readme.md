@@ -1,8 +1,7 @@
 Test task
 =================
 
-Design and implement a RESTful API (including data model and the backing implementation) for money transfers
-between internal users/accounts.
+Design and implement a RESTful API (including data model and the backing implementation) for money transfers between internal users/accounts.
 Explicit requirements:
 
 * keep it simple and to the point (e.g. no need to implement any authentication, assume the APi is invoked by another internal system/service)
@@ -12,14 +11,15 @@ Explicit requirements:
 * demonstrate with tests that the API works as expected
 
 Implicit requirements:
-* the code produced by you is expected to be of good quality.
-* there are no detailed requirements, use common sense.
+* the code produced by you is expected to be of good quality
+* there are no detailed requirements, use common sense
 
 Please put your work on github or bitbucket.
 
 Key issues
 ------------
-sinap is a recursive acronym that means "SINAP is not a processing". This name is not my idea, one of a QIWI hackathon projects was called so.
+sinap is a recursive acronym that means "SINAP is not a processing".
+This name is not my idea, one of a QIWI hackathon projects was called so.
 
 * Simplicity, reliablility, explicitness.
 * Prevent payment duplicates
