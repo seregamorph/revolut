@@ -4,29 +4,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
-public class PaymentResponse {
+public class PaymentStatusResponse {
     @JsonProperty(value = "transaction_id")
     private long transactionId;
 
     /**
      * result code
      */
-    @JsonProperty(required = true)
     private int result;
-    @JsonProperty(required = true)
     private String message;
 
-    public PaymentResponse setTransactionId(long transactionId) {
+    public PaymentStatusResponse setTransactionId(long transactionId) {
         this.transactionId = transactionId;
         return this;
     }
 
-    public PaymentResponse setResult(int result) {
+    public PaymentStatusResponse setResult(int result) {
         this.result = result;
         return this;
     }
 
-    public PaymentResponse setMessage(String message) {
+    public PaymentStatusResponse setMessage(String message) {
         this.message = message;
         return this;
     }
@@ -45,7 +43,7 @@ public class PaymentResponse {
 
     @Override
     public String toString() {
-        return "PaymentResponse{" +
+        return "PaymentStatusResponse{" +
                 "transactionId=" + transactionId +
                 ", result=" + result +
                 ", message='" + message + '\'' +

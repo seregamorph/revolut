@@ -27,6 +27,7 @@ This name is not my idea, one of a QIWI hackathon projects was called so.
 * externability
 * stateless (REST)
 * minimize dependencies
+* immutable pattern is preffered
 
 Technology stack
 ------------
@@ -37,6 +38,11 @@ The chosen technologies:
 * Guice
 * Apache http client (for test)
 * Jackson
+
+Code style
+------------
+Project uses non-javabeans code style everywhere where available (e.g. jackson by default requires javabeans convention).
+Inspired by Jackson and Netty API, most setters return ```this``` object and have no ```set``` prefix, getters have no ```get``` prefix.
 
 Project structure
 ------------

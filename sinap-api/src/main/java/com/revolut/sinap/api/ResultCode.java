@@ -9,7 +9,7 @@ package com.revolut.sinap.api;
  * 2xx - in progress
  * 3xx - two phase: waiting for confirm
  * </pre>
- * Most of codes are reserved.
+ * Some codes are reserved.
  */
 public enum ResultCode {
     // success
@@ -53,6 +53,14 @@ public enum ResultCode {
 
     public static boolean isConfirm(int code) {
         return code >= 300 && code < 400;
+    }
+
+    public int code() {
+        return code;
+    }
+
+    public String message() {
+        return message;
     }
 
     @Override
