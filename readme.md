@@ -26,6 +26,7 @@ This name is not my idea, one of a QIWI hackathon projects was called so.
 * diagnostics
 * externability
 * stateless (REST)
+* minimize dependencies
 
 Technology stack
 ------------
