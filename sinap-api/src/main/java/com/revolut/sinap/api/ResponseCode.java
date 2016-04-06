@@ -1,7 +1,7 @@
 package com.revolut.sinap.api;
 
 /**
- * Payment result/status codes.
+ * Payment status codes.<br/>
  * Code series:
  * <pre>
  * 0xx - success (final)
@@ -11,7 +11,7 @@ package com.revolut.sinap.api;
  * </pre>
  * Some codes are reserved.
  */
-public enum ResultCode {
+public enum ResponseCode {
     // success
     SUCCESS(1, "Success"),
     DUPLICATE_SUCCESS(2, "Duplicate success"),
@@ -34,7 +34,7 @@ public enum ResultCode {
     private final int code;
     private final String message;
 
-    ResultCode(int code, String message) {
+    ResponseCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -65,7 +65,7 @@ public enum ResultCode {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "ResponseCode" +
                 "code=" + code +
                 ", message='" + message + '\'' +
                 '}';

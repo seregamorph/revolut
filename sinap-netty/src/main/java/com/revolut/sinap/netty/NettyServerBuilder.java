@@ -19,7 +19,7 @@ public abstract class NettyServerBuilder {
         this.name = name;
     }
 
-    protected final String name() {
+    final String name() {
         return name;
     }
 
@@ -40,7 +40,7 @@ public abstract class NettyServerBuilder {
         return this;
     }
 
-    protected ServerBootstrap getBootstrap() {
+    ServerBootstrap getBootstrap() {
         InnerUtils.checkState(localAddressSet, "localAddress not set");
 
         ChannelHandler initializer = getServerPipeline();
@@ -49,7 +49,7 @@ public abstract class NettyServerBuilder {
                 .childHandler(initializer);
     }
 
-    protected abstract ChannelHandler getServerPipeline();
+    abstract ChannelHandler getServerPipeline();
 
     public NettyServer build() {
         // parameter checks in builder by design are in objects constructors

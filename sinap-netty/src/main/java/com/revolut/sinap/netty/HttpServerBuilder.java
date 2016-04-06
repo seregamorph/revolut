@@ -1,7 +1,5 @@
 package com.revolut.sinap.netty;
 
-import com.revolut.sinap.http.HttpHandler;
-
 public class HttpServerBuilder extends NettyServerBuilder {
     private HttpHandler httpHandler;
 
@@ -15,7 +13,7 @@ public class HttpServerBuilder extends NettyServerBuilder {
     }
 
     @Override
-    protected ServerPipeline getServerPipeline() {
+    ServerPipeline getServerPipeline() {
         return new ServerPipeline(name(), httpHandler);
     }
 }

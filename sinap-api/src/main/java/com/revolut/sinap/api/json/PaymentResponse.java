@@ -9,11 +9,9 @@ public class PaymentResponse {
     private long transactionId;
 
     /**
-     * result code
+     * response code
      */
-    @JsonProperty(required = true)
-    private int result;
-    @JsonProperty(required = true)
+    private int response;
     private String message;
 
     public PaymentResponse setTransactionId(long transactionId) {
@@ -21,8 +19,8 @@ public class PaymentResponse {
         return this;
     }
 
-    public PaymentResponse setResult(int result) {
-        this.result = result;
+    public PaymentResponse setResponse(int response) {
+        this.response = response;
         return this;
     }
 
@@ -35,8 +33,8 @@ public class PaymentResponse {
         return transactionId;
     }
 
-    public int getResult() {
-        return result;
+    public int getResponse() {
+        return response;
     }
 
     public String getMessage() {
@@ -47,7 +45,7 @@ public class PaymentResponse {
     public String toString() {
         return "PaymentResponse{" +
                 "transactionId=" + transactionId +
-                ", result=" + result +
+                ", response" + response +
                 ", message='" + message + '\'' +
                 '}';
     }

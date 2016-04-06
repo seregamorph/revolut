@@ -9,9 +9,9 @@ public class PaymentStatusResponse {
     private long transactionId;
 
     /**
-     * result code
+     * response code
      */
-    private int result;
+    private int response;
     private String message;
 
     public PaymentStatusResponse setTransactionId(long transactionId) {
@@ -19,8 +19,8 @@ public class PaymentStatusResponse {
         return this;
     }
 
-    public PaymentStatusResponse setResult(int result) {
-        this.result = result;
+    public PaymentStatusResponse setResponse(int response) {
+        this.response = response;
         return this;
     }
 
@@ -33,8 +33,8 @@ public class PaymentStatusResponse {
         return transactionId;
     }
 
-    public int getResult() {
-        return result;
+    public int getResponse() {
+        return response;
     }
 
     public String getMessage() {
@@ -45,7 +45,7 @@ public class PaymentStatusResponse {
     public String toString() {
         return "PaymentStatusResponse{" +
                 "transactionId=" + transactionId +
-                ", result=" + result +
+                ", response" + response +
                 ", message='" + message + '\'' +
                 '}';
     }
