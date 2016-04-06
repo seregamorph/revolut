@@ -1,21 +1,22 @@
-package com.revolut.sinap.proto;
+package com.revolut.sinap.api;
 
 /**
  * Payment result/status codes.
  * Code series:
  * <pre>
- *   1 - success
- * 1xx - failures
+ * 0xx - success (final)
+ * 1xx - failures (final)
  * 2xx - in progress
  * 3xx - two phase: waiting for confirm
  * </pre>
  * Most of codes are reserved.
  */
-public enum Result {
-    // final: success
+public enum ResultCode {
+    // success
     SUCCESS(1, "Success"),
+    DUPLICATE_SUCCESS(2, "Duplicate success"),
 
-    // final: failures
+    // failures
     CANCELED(100, "Operation canceled"),
     BAD_SOURCE_ACCOUNT(101, "Source account does not exist"),
     BAD_TARGET_ACCOUNT(102, "Target account does not exist"),
@@ -33,7 +34,7 @@ public enum Result {
     private final int code;
     private final String message;
 
-    Result(int code, String message) {
+    ResultCode(int code, String message) {
         this.code = code;
         this.message = message;
     }

@@ -1,4 +1,4 @@
-package com.revolut.sinap.proto.json;
+package com.revolut.sinap.api.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
