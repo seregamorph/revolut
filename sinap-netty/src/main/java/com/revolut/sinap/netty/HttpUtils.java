@@ -2,11 +2,9 @@ package com.revolut.sinap.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.handler.codec.http.DefaultFullHttpResponse;
-import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import org.jetbrains.annotations.Nullable;
 
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
@@ -24,30 +22,27 @@ public class HttpUtils {
         return resp;
     }
 
-    /**
-     * Get uri without parameters.<br/>
-     * <pre>
-     * java servlet api: HttpServletRequest.getRequestURI()
-     * for request
-     * GET /abc/def?a=b HTTP/1.0
-     * will return
-     * /abc/def
-     * </pre>
-     *
-     * @param request
-     * @return
-     */
-    public static String getRequestUri(FullHttpRequest request) {
-        // with params (query string)
-        String fullUri = request.getUri();
-        return getRequestUri(fullUri);
+    public static FullHttpResponse createJsonHttpResponse(HttpResponseStatus status, byte[] responseBody) {
+        ByteBuf buf = Unpooled.copiedBuffer(responseBody);
+        DefaultFullHttpResponse resp = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, buf);
+        resp.headers().set(HttpHeaders.Names.CONTENT_TYPE, "application/json");
+        resp.headers().set(HttpHeaders.Names.CONTENT_LENGTH, responseBody.length);
+        return resp;
     }
 
-    static String getRequestUri(String fullUri) {
-        int qpos;
-        if (fullUri == null || (qpos = fullUri.indexOf('?')) < 0) {
-            return fullUri;
+    @Nullable
+    public static byte[] getBodyAndRelease(FullHttpRequest request) {
+        try {
+            ByteBuf content = request.content();
+            if (content == null) {
+                return null;
+            }
+            int capacity = content.capacity();
+            byte[] body = new byte[capacity];
+            content.readBytes(body);
+            return body;
+        } finally {
+            request.release();
         }
-        return fullUri.substring(0, qpos);
     }
 }

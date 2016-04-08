@@ -44,12 +44,6 @@ The chosen technologies:
 * Apache http client (for tests)
 * Jackson
 
-Code style
-------------
-Project uses non-javabeans code style everywhere where available (e.g. jackson by default requires javabeans
-convention for json objects). Inspired by Jackson and Netty API, most setters return ```this``` object and have
-no ```set``` prefix, getters have no ```get``` prefix.
-
 Project structure
 ------------
 * sinap-api is a module with json declarations of the protocol. It can be exported to a public project for
@@ -73,3 +67,4 @@ TODO list
 * two-phase payments (hold + withdraw)
 * Currency convertation
 * support wildcards instead of regex/pattern in DispatchHttpHandlerBuilder
+* Money class (Currency, amount). Martin Fowler

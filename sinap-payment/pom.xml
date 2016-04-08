@@ -13,6 +13,10 @@
     <artifactId>revolut-sinap-payment</artifactId>
 
     <dependencies>
-
+        <!--sinap-->
+        <dependency>
+            <groupId>com.revolut.sinap</groupId>
+            <artifactId>revolut-sinap-api</artifactId>
+        </dependency>
     </dependencies>
 </project>
