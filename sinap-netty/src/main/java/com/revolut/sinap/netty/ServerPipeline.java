@@ -23,16 +23,17 @@ class ServerPipeline extends ChannelInitializer<SocketChannel> {
         ChannelPipeline p = ch.pipeline();
 
         // todo ReadTimeoutHandler, WriteTimeoutHandler
+
         // sharable
-        p.addLast(loggingHandler);
+        // p.addLast(loggingHandler);
 
         // non-sharable
         p.addLast(new HttpRequestDecoder());
         p.addLast(new HttpResponseEncoder());
         p.addLast(new HttpObjectAggregator(16384));
 
-//        // sharable
-//        p.addLast(loggingHandler);
+        // sharable
+        p.addLast(loggingHandler);
 
         // sharable
         p.addLast(serverHttpHandler);

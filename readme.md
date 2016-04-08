@@ -69,4 +69,7 @@ TODO
 
 TODO list
 ------------
-* maven wrapper
+* netty buffers pooling allocators
+* two-phase payments (hold + withdraw)
+* Currency convertation
+* support wildcards instead of regex/pattern in DispatchHttpHandlerBuilder

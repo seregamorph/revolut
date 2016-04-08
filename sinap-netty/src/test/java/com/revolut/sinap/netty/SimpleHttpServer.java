@@ -1,8 +1,6 @@
 package com.revolut.sinap.netty;
 
-import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import org.jetbrains.annotations.Nullable;
 
 public class SimpleHttpServer {
     public static void main(String[] args) {
@@ -10,17 +8,9 @@ public class SimpleHttpServer {
 
         HttpHandler testHandler = request -> HttpUtils.createTextPlainHttpResponseUtf8(HttpResponseStatus.OK, "test success");
 
-        HttpHandler dispatcher = new AbstractDispatchHttpHandler() {
-            @Nullable
-            @Override
-            protected HttpHandler getHandler(FullHttpRequest request) {
-                String uri = request.getUri();
-                if ("/test".equals(uri)) {
-                    return testHandler;
-                }
-                return null;
-            }
-        };
+        HttpHandler dispatcher = new DispatchHttpHandlerBuilder()
+                .bind("^/test$", testHandler)
+                .build();
 
         NettyServer server = new HttpServerBuilder("test")
                 .handler(dispatcher)

@@ -146,6 +146,13 @@
                 <version>4.4.4</version>
             </dependency>
 
+            <!--guice-->
+            <!--<dependency>-->
+                <!--<groupId>com.google.inject</groupId>-->
+                <!--<artifactId>guice</artifactId>-->
+                <!--<version>3.0</version>-->
+            <!--</dependency>-->
+
             <!--test-->
             <dependency>
                 <groupId>org.testng</groupId>
