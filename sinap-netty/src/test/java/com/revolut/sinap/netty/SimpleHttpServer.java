@@ -9,7 +9,7 @@ public class SimpleHttpServer {
         HttpHandler testHandler = request -> HttpUtils.createTextPlainHttpResponseUtf8(HttpResponseStatus.OK, "test success");
 
         HttpHandler dispatcher = new DispatchHttpHandlerBuilder()
-                .bind("^/test$", testHandler)
+                .bind("/test", testHandler)
                 .build();
 
         NettyServer server = new HttpServerBuilder("test")

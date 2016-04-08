@@ -10,7 +10,9 @@ import java.util.regex.Pattern;
 /**
  * Simple dispatching http handler builder.
  * Dispatcher chooses first matching uri.
- *
+ * <p/>
+ * todo example of code to use.
+ * <p/>
  * todo wildcard patterns instead of regex Pattern
  */
 public class DispatchHttpHandlerBuilder {
@@ -22,8 +24,18 @@ public class DispatchHttpHandlerBuilder {
         return this;
     }
 
-    public DispatchHttpHandlerBuilder bind(String uriRegex, HttpHandler handler) {
-        Pattern uriPattern = Pattern.compile(uriRegex);
+    /**
+     * Bind uri to handler. Shortcut for
+     * <pre>
+     * bind(Pattern.compile(Pattern.quote(uri)), handler)
+     * </pre>
+     *
+     * @param uri
+     * @param handler
+     * @return
+     */
+    public DispatchHttpHandlerBuilder bind(String uri, HttpHandler handler) {
+        Pattern uriPattern = Pattern.compile(Pattern.quote(uri));
         return bind(uriPattern, handler);
     }
 
