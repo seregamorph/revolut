@@ -1,17 +1,16 @@
 package com.revolut.sinap.api.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.revolut.sinap.api.ResponseCode;
 
 @JsonSerialize
 public class PaymentStatusResponse {
     @JsonProperty(value = "transaction_id")
     private long transactionId;
 
-    /**
-     * response code
-     */
-    private int response;
+    private int responseCode;
     private String message;
 
     public PaymentStatusResponse setTransactionId(long transactionId) {
@@ -19,8 +18,14 @@ public class PaymentStatusResponse {
         return this;
     }
 
-    public PaymentStatusResponse setResponse(int response) {
-        this.response = response;
+    @JsonIgnore
+    public PaymentStatusResponse setResponseCode(ResponseCode responseCode) {
+        return setResponseCode(responseCode.code())
+                .setMessage(responseCode.message());
+    }
+
+    public PaymentStatusResponse setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
         return this;
     }
 
@@ -33,8 +38,8 @@ public class PaymentStatusResponse {
         return transactionId;
     }
 
-    public int getResponse() {
-        return response;
+    public int getResponseCode() {
+        return responseCode;
     }
 
     public String getMessage() {
@@ -45,7 +50,7 @@ public class PaymentStatusResponse {
     public String toString() {
         return "PaymentStatusResponse{" +
                 "transactionId=" + transactionId +
-                ", response" + response +
+                ", responseCode=" + responseCode +
                 ", message='" + message + '\'' +
                 '}';
     }

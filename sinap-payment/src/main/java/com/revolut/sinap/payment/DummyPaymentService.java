@@ -7,4 +7,9 @@ public class DummyPaymentService implements PaymentService {
     public ResponseCode processPayment(PaymentServiceOperation payment) {
         return ResponseCode.SUCCESS;
     }
+
+    @Override
+    public ResponseCode processPaymentStatus(long transactionId) {
+        return ResponseCode.SUCCESS;
+    }
 }

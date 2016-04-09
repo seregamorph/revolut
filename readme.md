@@ -40,7 +40,6 @@ But condition says: no spring, standalone.
 The chosen technologies:
 * Java 8
 * Netty + basic http server
-* Guice
 * Apache http client (for tests)
 * Jackson
 

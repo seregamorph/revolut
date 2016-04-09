@@ -14,6 +14,13 @@
     <!--<packaging>war</packaging>-->
 
     <dependencies>
+        <!--logging-->
+        <!--todo replace with logback-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+
         <!--sinap-->
         <dependency>
             <groupId>com.revolut.sinap</groupId>
