@@ -5,14 +5,14 @@ import com.revolut.sinap.api.ResponseCode;
 public class Payment {
     private final long transactionId;
 
-    private long sourceAccountid;
+    private long sourceAccountId;
     private String sourceCurrency;
     /**
      * minor units
      */
     private long sourceAmount;
 
-    private long targetAccountid;
+    private long targetAccountId;
     private String targetCurrency;
     /**
      * minor units
@@ -27,8 +27,8 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
-    public Payment setSourceAccountid(long sourceAccountid) {
-        this.sourceAccountid = sourceAccountid;
+    public Payment setSourceAccountId(long sourceAccountId) {
+        this.sourceAccountId = sourceAccountId;
         return this;
     }
 
@@ -42,8 +42,8 @@ public class Payment {
         return this;
     }
 
-    public Payment setTargetAccountid(long targetAccountid) {
-        this.targetAccountid = targetAccountid;
+    public Payment setTargetAccountId(long targetAccountid) {
+        this.targetAccountId = targetAccountid;
         return this;
     }
 
@@ -71,8 +71,8 @@ public class Payment {
         return transactionId;
     }
 
-    public long getSourceAccountid() {
-        return sourceAccountid;
+    public long getSourceAccountId() {
+        return sourceAccountId;
     }
 
     public String getSourceCurrency() {
@@ -83,8 +83,8 @@ public class Payment {
         return sourceAmount;
     }
 
-    public long getTargetAccountid() {
-        return targetAccountid;
+    public long getTargetAccountId() {
+        return targetAccountId;
     }
 
     public String getTargetCurrency() {
@@ -108,10 +108,10 @@ public class Payment {
         // todo mask account ids if it is card numbers
         return "Payment{" +
                 "transactionId=" + transactionId +
-                ", sourceAccountid=" + sourceAccountid +
+                ", sourceAccountId=" + sourceAccountId +
                 ", sourceCurrency='" + sourceCurrency + '\'' +
                 ", sourceAmount=" + sourceAmount +
-                ", targetAccountid=" + targetAccountid +
+                ", targetAccountId=" + targetAccountId +
                 ", targetCurrency='" + targetCurrency + '\'' +
                 ", targetAmount=" + targetAmount +
                 ", comment='" + comment + '\'' +

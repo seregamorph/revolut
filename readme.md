@@ -52,6 +52,11 @@ integration purposes.
 * sinap-payment is a dummy in-memory processing core
 * sinap-server is a bootstrap and distribution module
 
+Payment service
+------------
+Note, that protocol has '.'-separated amount of major units, inner structures like Payment object and DummyPaymentService
+use minor units amount.
+
 Project building
 ------------
 ```mvn clean package```
