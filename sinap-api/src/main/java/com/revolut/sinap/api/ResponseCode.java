@@ -6,8 +6,8 @@ package com.revolut.sinap.api;
  * <pre>
  * 0xx - success (final)
  * 1xx - failures (final)
- * 2xx - in progress
- * 3xx - two phase: waiting for confirm
+ * 2xx - in progress (reserved)
+ * 3xx - two phase: waiting for confirm (reserved)
  * </pre>
  * Some codes are reserved.
  */
@@ -25,11 +25,12 @@ public enum ResponseCode {
     NO_MONEY(105, "Not enough money on source account"),
     LIMIT_EXCEEDED(105, "Daily limit exceeded"),
 
-    // in progress
-    RECEIVED(200, "Operation in progress"),
+//    // in progress
+//    RECEIVED(200, "Operation in progress"),
 
     // twophase: waiting for confirm
-    CONFIRM(300, "Waiting for confirm");
+//    CONFIRM(300, "Waiting for confirm")
+    ;
 
     private final int code;
     private final String message;

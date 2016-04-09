@@ -1,27 +1,26 @@
 package com.revolut.sinap.payment.domain;
 
-import com.revolut.sinap.api.ResponseCode;
+import com.revolut.sinap.payment.Currency;
+import com.revolut.sinap.payment.PaymentServiceOperation;
 
-public class Payment {
+public class Payment implements PaymentServiceOperation {
     private final long transactionId;
 
     private long sourceAccountId;
-    private String sourceCurrency;
+    private Currency sourceCurrency;
     /**
      * minor units
      */
     private long sourceAmount;
 
     private long targetAccountId;
-    private String targetCurrency;
+    private Currency targetCurrency;
     /**
      * minor units
      */
     private long targetAmount;
 
     private String comment;
-
-    private ResponseCode responseCode = ResponseCode.RECEIVED;
 
     public Payment(long transactionId) {
         this.transactionId = transactionId;
@@ -32,7 +31,7 @@ public class Payment {
         return this;
     }
 
-    public Payment setSourceCurrency(String sourceCurrency) {
+    public Payment setSourceCurrency(Currency sourceCurrency) {
         this.sourceCurrency = sourceCurrency;
         return this;
     }
@@ -47,7 +46,7 @@ public class Payment {
         return this;
     }
 
-    public Payment setTargetCurrency(String targetCurrency) {
+    public Payment setTargetCurrency(Currency targetCurrency) {
         this.targetCurrency = targetCurrency;
         return this;
     }
@@ -62,11 +61,6 @@ public class Payment {
         return this;
     }
 
-    public Payment setResponseCode(ResponseCode responseCode) {
-        this.responseCode = responseCode;
-        return this;
-    }
-
     public long transactionId() {
         return transactionId;
     }
@@ -75,7 +69,7 @@ public class Payment {
         return sourceAccountId;
     }
 
-    public String getSourceCurrency() {
+    public Currency getSourceCurrency() {
         return sourceCurrency;
     }
 
@@ -87,7 +81,7 @@ public class Payment {
         return targetAccountId;
     }
 
-    public String getTargetCurrency() {
+    public Currency getTargetCurrency() {
         return targetCurrency;
     }
 
@@ -97,10 +91,6 @@ public class Payment {
 
     public String getComment() {
         return comment;
-    }
-
-    public ResponseCode getResponseCode() {
-        return responseCode;
     }
 
     @Override
@@ -115,7 +105,6 @@ public class Payment {
                 ", targetCurrency='" + targetCurrency + '\'' +
                 ", targetAmount=" + targetAmount +
                 ", comment='" + comment + '\'' +
-                ", responseCode=" + responseCode +
                 '}';
     }
 }
