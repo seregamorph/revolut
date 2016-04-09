@@ -26,7 +26,7 @@ public abstract class AbstractJsonController<RQ, RS> extends AbstractController<
     @Override
     protected RQ parseRequest(FullHttpRequest request) {
         // todo check "Content-Type" header
-        byte[] requestBody = HttpUtils.getBodyAndRelease(request);
+        byte[] requestBody = HttpUtils.getBody(request);
         if (requestBody == null || requestBody.length == 0) {
             // error 400
             throw new IllegalArgumentException("Empty body not allowed");

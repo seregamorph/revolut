@@ -30,19 +30,21 @@ public class HttpUtils {
         return resp;
     }
 
+    /**
+     * Note: this method does not release ReferenceCounted request
+     *
+     * @param request
+     * @return
+     */
     @Nullable
-    public static byte[] getBodyAndRelease(FullHttpRequest request) {
-        try {
-            ByteBuf content = request.content();
-            if (content == null) {
-                return null;
-            }
-            int capacity = content.capacity();
-            byte[] body = new byte[capacity];
-            content.readBytes(body);
-            return body;
-        } finally {
-            request.release();
+    public static byte[] getBody(FullHttpRequest request) {
+        ByteBuf content = request.content();
+        if (content == null) {
+            return null;
         }
+        int capacity = content.capacity();
+        byte[] body = new byte[capacity];
+        content.readBytes(body);
+        return body;
     }
 }
