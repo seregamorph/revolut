@@ -97,3 +97,4 @@ Conclusion
 I tried to make it simple, but sometimes it looks a little bit overegineered. Just wanted to show some tricks and
 experience. The concurrency optimizations in DummyAccountStorage are not so effective, because logic inside of synch-blocks
 is too trivial and non-blocking.
+The target jar with dependencies is only 3.3 MB.

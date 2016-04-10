@@ -4,7 +4,9 @@ import com.revolut.sinap.api.ResponseCode;
 import org.testng.annotations.Test;
 
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
@@ -13,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 public class DummyAccountStorageTest {
     @Test
     public void test1() {
-        ConcurrentMap<Long, DummyAccountStorage.Account> accounts = new ConcurrentHashMap<>();
+        Map<Long, DummyAccountStorage.Account> accounts = Collections.synchronizedMap(new HashMap<>());
         accounts.put(1L, new DummyAccountStorage.Account(1, Currency.RUB, 0, 10000));
         accounts.put(2L, new DummyAccountStorage.Account(2, Currency.RUB, 0, 0));
 
@@ -38,12 +40,12 @@ public class DummyAccountStorageTest {
     @Test
     public void testHeavySingleThread() {
         long balance = TRANSACTIONS / ACCOUNTS;
-        Map<Long, DummyAccountStorage.Account> accounts = LongStream.range(1, ACCOUNTS * 2 + 1)
+        Map<Long, DummyAccountStorage.Account> accounts = Collections.synchronizedMap(LongStream.range(1, ACCOUNTS * 2 + 1)
                 .mapToObj(accountId -> new DummyAccountStorage.Account(accountId, Currency.RUB, 0,
                         accountId <= ACCOUNTS ? balance : 0))
-                .collect(Collectors.toMap(DummyAccountStorage.Account::accountId, e -> e));
+                .collect(Collectors.toMap(DummyAccountStorage.Account::accountId, e -> e)));
 
-        DummyAccountStorage storage = new DummyAccountStorage(new ConcurrentHashMap<>(accounts));
+        DummyAccountStorage storage = new DummyAccountStorage(accounts);
 
         for (int i = 0; i < TRANSACTIONS; i++) {
             long sourceAccountId = i % ACCOUNTS + 1;
@@ -61,12 +63,12 @@ public class DummyAccountStorageTest {
     @Test(dependsOnMethods = {"test1", "testHeavySingleThread"})
     public void testHeavyMultiThread() {
         long balance = TRANSACTIONS / ACCOUNTS;
-        Map<Long, DummyAccountStorage.Account> accounts = LongStream.range(1, ACCOUNTS * 2 + 1)
+        Map<Long, DummyAccountStorage.Account> accounts = Collections.synchronizedMap(LongStream.range(1, ACCOUNTS * 2 + 1)
                 .mapToObj(accountId -> new DummyAccountStorage.Account(accountId, Currency.RUB, 0,
                         accountId <= ACCOUNTS ? balance : 0))
-                .collect(Collectors.toMap(DummyAccountStorage.Account::accountId, e -> e));
+                .collect(Collectors.toMap(DummyAccountStorage.Account::accountId, e -> e)));
 
-        DummyAccountStorage storage = new DummyAccountStorage(new ConcurrentHashMap<>(accounts));
+        DummyAccountStorage storage = new DummyAccountStorage(accounts);
 
         List<Payment> payments = new ArrayList<>(TRANSACTIONS);
         for (int i = 0; i < TRANSACTIONS; i++) {

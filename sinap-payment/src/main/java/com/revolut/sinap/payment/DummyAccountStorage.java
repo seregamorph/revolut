@@ -1,6 +1,8 @@
 package com.revolut.sinap.payment;
 
 import com.revolut.sinap.api.ResponseCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -8,6 +10,8 @@ import java.util.*;
  * In-memory thread safe account storage implementation
  */
 public class DummyAccountStorage {
+    private static final Logger logger = LoggerFactory.getLogger(DummyAccountStorage.class);
+
     private final Map<UUID, TransactionReference> transactions = Collections.synchronizedMap(new HashMap<>());
     private final Map<Long, Account> accounts;
 
@@ -104,6 +108,8 @@ public class DummyAccountStorage {
                     synchronized (firstLockAccount) {
                         synchronized (secondLockAccount) {
                             if (!sourceAccount.ensureAvailableToWithdraw(sourceAmount)) {
+                                logger.warn("Not enough balance on account {}: {}, txn {}",
+                                        sourceAccountId, sourceAccount.getBalance(), transactionId);
                                 ref.rollback();
                                 return ResponseCode.NO_MONEY;
                             }
