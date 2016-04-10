@@ -15,8 +15,6 @@ import java.util.concurrent.ConcurrentMap;
 
 public class Main {
     public static void main(String[] args) {
-        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "TRACE");
-
         ConcurrentMap<Long, DummyAccountStorage.Account> accounts = createDefaultAccounts();
 
         DummyAccountStorage accountStorage = new DummyAccountStorage(accounts);

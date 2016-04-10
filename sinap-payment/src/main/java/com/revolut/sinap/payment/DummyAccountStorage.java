@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentMap;
  * In-memory thread safe account storage implementation
  */
 public class DummyAccountStorage {
-    final ConcurrentMap<UUID, TransactionReference> transactions = new ConcurrentHashMap<>();
-    final ConcurrentMap<Long, Account> accounts;
+    private final ConcurrentMap<UUID, TransactionReference> transactions = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Long, Account> accounts;
 
     public DummyAccountStorage(ConcurrentMap<Long, Account> accounts) {
         this.accounts = accounts;
@@ -314,6 +314,10 @@ public class DummyAccountStorage {
             }
         }
 
+        public long accountId() {
+            return accountId;
+        }
+
         private boolean ensureAvailableToWithdraw(long amount) {
             assert Thread.holdsLock(this);
             return balance - amount >= lowerLimit;
@@ -327,6 +331,10 @@ public class DummyAccountStorage {
             long newBalance = this.balance + amount;
             assert newBalance >= lowerLimit;
             this.balance = newBalance;
+        }
+
+        public synchronized long getBalance() {
+            return balance;
         }
 
         @Override
