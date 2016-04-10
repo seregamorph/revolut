@@ -11,6 +11,8 @@ import com.revolut.sinap.payment.domain.PaymentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.UUID;
+
 public class PaymentController extends AbstractJsonController<PaymentRequest, PaymentResponse> {
     private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
@@ -43,7 +45,7 @@ public class PaymentController extends AbstractJsonController<PaymentRequest, Pa
         long sourceAmount = Currencies.parseAmount(sourceAccount.getAmount(), sourceCurrency);
         long targetAmount = Currencies.parseAmount(targetAccount.getAmount(), targetCurrency);
 
-        Payment payment = new Payment(req.getTransactionId())
+        Payment payment = new Payment(UUID.fromString(req.getTransactionId()))
                 .setSourceAccountId(sourceAccount.getId())
                 .setSourceAmount(sourceAmount)
                 .setSourceCurrency(sourceCurrency)

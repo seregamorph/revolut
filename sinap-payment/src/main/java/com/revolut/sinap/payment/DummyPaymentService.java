@@ -2,6 +2,8 @@ package com.revolut.sinap.payment;
 
 import com.revolut.sinap.api.ResponseCode;
 
+import java.util.UUID;
+
 public class DummyPaymentService implements PaymentService {
     @Override
     public ResponseCode processPayment(PaymentServiceOperation payment) {
@@ -9,7 +11,7 @@ public class DummyPaymentService implements PaymentService {
     }
 
     @Override
-    public ResponseCode processPaymentStatus(long transactionId) {
+    public ResponseCode processPaymentStatus(UUID transactionId) {
         return ResponseCode.SUCCESS;
     }
 }

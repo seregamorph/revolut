@@ -5,16 +5,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.revolut.sinap.api.ResponseCode;
 
+import java.util.UUID;
+
 @JsonSerialize
 public class PaymentStatusResponse {
+    /**
+     * uuid
+     */
     @JsonProperty(value = "transaction_id")
-    private long transactionId;
+    private String transactionId;
 
     private int responseCode;
     private String message;
 
-    public PaymentStatusResponse setTransactionId(long transactionId) {
-        this.transactionId = transactionId;
+    public PaymentStatusResponse setTransactionId(String transactionId) {
+        this.transactionId = UUID.fromString(transactionId).toString();
         return this;
     }
 
@@ -34,7 +39,7 @@ public class PaymentStatusResponse {
         return this;
     }
 
-    public long getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 

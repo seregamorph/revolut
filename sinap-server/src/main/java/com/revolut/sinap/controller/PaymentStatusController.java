@@ -8,6 +8,8 @@ import com.revolut.sinap.payment.domain.PaymentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.UUID;
+
 public class PaymentStatusController extends AbstractJsonController<PaymentStatusRequest, PaymentStatusResponse> {
     private static final Logger logger = LoggerFactory.getLogger(PaymentStatusController.class);
 
@@ -31,7 +33,8 @@ public class PaymentStatusController extends AbstractJsonController<PaymentStatu
     }
 
     private PaymentStatusResponse doProcess(PaymentStatusRequest req) throws PaymentException {
-        ResponseCode responseCode = paymentService.processPaymentStatus(req.getTransactionId());
+        UUID transactionId = UUID.fromString(req.getTransactionId());
+        ResponseCode responseCode = paymentService.processPaymentStatus(transactionId);
 
         return new PaymentStatusResponse()
                 .setTransactionId(req.getTransactionId())

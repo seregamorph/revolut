@@ -3,17 +3,22 @@ package com.revolut.sinap.api.json;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.util.UUID;
+
 @JsonSerialize
 public class PaymentStatusRequest {
+    /**
+     * uuid
+     */
     @JsonProperty(value = "transaction_id", required = true)
-    private long transactionId;
+    private String transactionId;
 
-    public PaymentStatusRequest setTransactionId(long transactionId) {
-        this.transactionId = transactionId;
+    public PaymentStatusRequest setTransactionId(String transactionId) {
+        this.transactionId = UUID.fromString(transactionId).toString();
         return this;
     }
 
-    public long getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 

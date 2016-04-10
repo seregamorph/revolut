@@ -1,7 +1,9 @@
 package com.revolut.sinap.payment;
 
+import java.util.UUID;
+
 public interface PaymentServiceOperation {
-    long transactionId();
+    UUID transactionId();
 
     long getSourceAccountId();
 

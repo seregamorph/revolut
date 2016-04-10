@@ -3,8 +3,10 @@ package com.revolut.sinap.payment.domain;
 import com.revolut.sinap.payment.Currency;
 import com.revolut.sinap.payment.PaymentServiceOperation;
 
+import java.util.UUID;
+
 public class Payment implements PaymentServiceOperation {
-    private final long transactionId;
+    private final UUID transactionId;
 
     private long sourceAccountId;
     private Currency sourceCurrency;
@@ -22,7 +24,7 @@ public class Payment implements PaymentServiceOperation {
 
     private String comment;
 
-    public Payment(long transactionId) {
+    public Payment(UUID transactionId) {
         this.transactionId = transactionId;
     }
 
@@ -61,34 +63,42 @@ public class Payment implements PaymentServiceOperation {
         return this;
     }
 
-    public long transactionId() {
+    @Override
+    public UUID transactionId() {
         return transactionId;
     }
 
+    @Override
     public long getSourceAccountId() {
         return sourceAccountId;
     }
 
+    @Override
     public Currency getSourceCurrency() {
         return sourceCurrency;
     }
 
+    @Override
     public long getSourceAmount() {
         return sourceAmount;
     }
 
+    @Override
     public long getTargetAccountId() {
         return targetAccountId;
     }
 
+    @Override
     public Currency getTargetCurrency() {
         return targetCurrency;
     }
 
+    @Override
     public long getTargetAmount() {
         return targetAmount;
     }
 
+    @Override
     public String getComment() {
         return comment;
     }

@@ -7,13 +7,16 @@ import com.revolut.sinap.api.ResponseCode;
 
 @JsonSerialize
 public class PaymentResponse {
+    /**
+     * uuid
+     */
     @JsonProperty(value = "transaction_id")
-    private long transactionId;
+    private String transactionId;
     @JsonProperty(value = "response_code")
     private int responseCode;
     private String message;
 
-    public PaymentResponse setTransactionId(long transactionId) {
+    public PaymentResponse setTransactionId(String transactionId) {
         this.transactionId = transactionId;
         return this;
     }
@@ -34,7 +37,7 @@ public class PaymentResponse {
         return this;
     }
 
-    public long getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 

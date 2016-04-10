@@ -4,14 +4,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.util.UUID;
+
 /**
  * Single-phase payment request
  */
 @JsonSerialize
 @JsonPropertyOrder({"transaction_id", "source", "target"})
 public class PaymentRequest {
+    /**
+     * uuid
+     */
     @JsonProperty(value = "transaction_id", required = true)
-    private long transactionId;
+    private String transactionId;
 
     @JsonProperty(required = true)
     private Account source;
@@ -22,8 +27,9 @@ public class PaymentRequest {
     @JsonProperty(required = false)
     private String comment;
 
-    public PaymentRequest setTransactionId(long transactionId) {
-        this.transactionId = transactionId;
+    public PaymentRequest setTransactionId(String transactionId) {
+        // check format
+        this.transactionId = UUID.fromString(transactionId).toString();
         return this;
     }
 
@@ -42,7 +48,7 @@ public class PaymentRequest {
         return this;
     }
 
-    public long getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
