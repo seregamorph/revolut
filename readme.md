@@ -86,12 +86,13 @@ Project running
 
 TODO list
 ------------
-* config
+* server config (properties, json, etc.)
 * netty buffers pooling allocators
 * two-phase payments (hold + withdraw)
 * Currency convertation
 * support wildcards instead of regex/pattern in DispatchHttpHandlerBuilder
 * Money class (Currency, amount). Martin Fowler
+* logback logging (now the slf4j simple logger is used)
 
 Conclusion
 ------------
