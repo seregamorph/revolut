@@ -3,6 +3,7 @@ package com.revolut.sinap.payment.domain;
 import com.revolut.sinap.payment.Currency;
 import com.revolut.sinap.payment.PaymentServiceOperation;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Payment implements PaymentServiceOperation {
@@ -25,7 +26,7 @@ public class Payment implements PaymentServiceOperation {
     private String comment;
 
     public Payment(UUID transactionId) {
-        this.transactionId = transactionId;
+        this.transactionId = Objects.requireNonNull(transactionId, "transactionId");
     }
 
     public Payment setSourceAccountId(long sourceAccountId) {

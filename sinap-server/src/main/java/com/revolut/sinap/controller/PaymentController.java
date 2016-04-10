@@ -7,7 +7,6 @@ import com.revolut.sinap.payment.Currencies;
 import com.revolut.sinap.payment.Currency;
 import com.revolut.sinap.payment.PaymentService;
 import com.revolut.sinap.payment.domain.Payment;
-import com.revolut.sinap.payment.domain.PaymentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,17 +24,10 @@ public class PaymentController extends AbstractJsonController<PaymentRequest, Pa
 
     @Override
     protected PaymentResponse process(PaymentRequest req) {
-        try {
-            return doProcess(req);
-        } catch (PaymentException e) {
-            logger.error("Error while processing payment request " + req, e);
-            return new PaymentResponse()
-                    .setTransactionId(req.getTransactionId())
-                    .setResponseCode(e.responseCode());
-        }
+        return doProcess(req);
     }
 
-    private PaymentResponse doProcess(PaymentRequest req) throws PaymentException {
+    private PaymentResponse doProcess(PaymentRequest req) {
         PaymentRequest.Account sourceAccount = req.getSource();
         PaymentRequest.Account targetAccount = req.getTarget();
 

@@ -27,10 +27,20 @@ This name is not my idea, one of a QIWI hackathon projects was called so.
 * self-documenting source code
 * Prevent payment duplicates
 * diagnostics
-* externability
+* extensibility
 * stateless (REST)
 * minimize dependencies
 * immutable pattern is preffered
+
+SINAP is like an ACID database. That means, there is no dirty reads, either api client sees condition before transaction,
+either after. So, transaction has only single final status: SUCCESS (ALREADY_SUCCESS for repeated request), any other
+trouble (like not enough balance) should rollback any changes if it has place. There is no intermediate payment status.
+After any failure the payment request can be repeated with the same id. E.g., awaiting for balance (of course, there
+must be some time intervals between tries).
+
+By design, it is client responsibilty to:
+* request one transaction always with the same transactionId
+* retry payment requests until get one of ResponseCode
 
 Technology stack
 ------------
@@ -42,6 +52,7 @@ The chosen technologies:
 * Netty + basic http server
 * Apache http client (for tests)
 * Jackson
+The class structure got not so complicated, I desided not to use alternate DI (like Guice).
 
 Project structure
 ------------
@@ -51,10 +62,18 @@ integration purposes.
 * sinap-payment is a dummy in-memory processing core
 * sinap-server is a bootstrap and distribution module
 
-Payment service
+Protocol
 ------------
-Note, that protocol has '.'-separated amount of major units, inner structures like Payment object and DummyPaymentService
-use minor units amount.
+External service protocol receives major units amount (e.g. ("12.34", USD) means 12 dollar 34 cent).
+Internal amount is stored as minor units (fraction digits of currency should be strictly immutable since declaration).
+E.g. (1234, USD) means 12 dollar 34 cent.
+Payment id is of UUID format. This is a for horizontal scaling simplification (in future), data analyze (split data
+to distributed nodes), etc. purposes.
+At the same time it uses central-based ideology of accounts with integer ids and locking.
+
+DummyAccountStorage
+------------
+DummyAccountStorage simulates acid database with transaction, as described in "Key issues" section.
 
 Project building
 ------------

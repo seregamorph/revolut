@@ -4,7 +4,6 @@ import com.revolut.sinap.api.ResponseCode;
 import com.revolut.sinap.api.json.PaymentStatusRequest;
 import com.revolut.sinap.api.json.PaymentStatusResponse;
 import com.revolut.sinap.payment.PaymentService;
-import com.revolut.sinap.payment.domain.PaymentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,17 +21,10 @@ public class PaymentStatusController extends AbstractJsonController<PaymentStatu
 
     @Override
     protected PaymentStatusResponse process(PaymentStatusRequest req) {
-        try {
-            return doProcess(req);
-        } catch (PaymentException e) {
-            logger.error("Error while processing payment request " + req, e);
-            return new PaymentStatusResponse()
-                    .setTransactionId(req.getTransactionId())
-                    .setResponseCode(e.responseCode());
-        }
+        return doProcess(req);
     }
 
-    private PaymentStatusResponse doProcess(PaymentStatusRequest req) throws PaymentException {
+    private PaymentStatusResponse doProcess(PaymentStatusRequest req) {
         UUID transactionId = UUID.fromString(req.getTransactionId());
         ResponseCode responseCode = paymentService.processPaymentStatus(transactionId);
 
