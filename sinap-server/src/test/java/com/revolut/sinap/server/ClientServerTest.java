@@ -90,7 +90,7 @@ public class ClientServerTest {
     private static final int TRANSACTIONS = 1000;
 
     @Test
-    public void testHeavyMultiThread() {
+    public void testMultiThreadClient() {
         List<PaymentRequest> payments = new ArrayList<>(TRANSACTIONS);
         for (int i = 0; i < TRANSACTIONS; i++) {
             long sourceAccountId = i % ACCOUNTS + 1;
