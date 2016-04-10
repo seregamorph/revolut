@@ -81,13 +81,19 @@ Project building
 
 Project running
 ------------
-TODO
-```java -jar revolut-sinap-server.jar path/to/config/file```
+```java -Dorg.slf4j.simpleLogger.defaultLogLevel=TRACE -jar revolut-sinap-server.jar```
 
 TODO list
 ------------
+* config
 * netty buffers pooling allocators
 * two-phase payments (hold + withdraw)
 * Currency convertation
 * support wildcards instead of regex/pattern in DispatchHttpHandlerBuilder
 * Money class (Currency, amount). Martin Fowler
+
+Conclusion
+------------
+I tried to make it simple, but sometimes it looks a little bit overegineered. Just wanted to show some tricks and
+experience. The concurrency optimizations in DummyAccountStorage are not so effective, because logic inside of synch-blocks
+is too trivial and non-blocking.

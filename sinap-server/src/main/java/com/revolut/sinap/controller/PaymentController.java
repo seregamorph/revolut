@@ -5,8 +5,8 @@ import com.revolut.sinap.api.json.PaymentRequest;
 import com.revolut.sinap.api.json.PaymentResponse;
 import com.revolut.sinap.payment.Currencies;
 import com.revolut.sinap.payment.Currency;
+import com.revolut.sinap.payment.Payment;
 import com.revolut.sinap.payment.PaymentService;
-import com.revolut.sinap.payment.domain.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

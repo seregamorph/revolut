@@ -1,7 +1,6 @@
 package com.revolut.sinap.payment;
 
 import com.revolut.sinap.api.ResponseCode;
-import com.revolut.sinap.payment.domain.Payment;
 import org.testng.annotations.Test;
 
 import java.util.*;

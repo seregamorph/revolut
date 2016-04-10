@@ -29,7 +29,7 @@ public abstract class AbstractJsonController<RQ, RS> extends AbstractController<
         byte[] requestBody = HttpUtils.getBody(request);
         if (requestBody == null || requestBody.length == 0) {
             // error 400
-            throw new IllegalArgumentException("Empty body not allowed");
+            throw new IllegalArgumentException("Empty HTTP body not allowed");
         }
         try {
             return mapper.readValue(requestBody, requestClass);

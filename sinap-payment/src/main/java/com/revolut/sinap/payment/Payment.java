@@ -1,7 +1,4 @@
-package com.revolut.sinap.payment.domain;
-
-import com.revolut.sinap.payment.Currency;
-import com.revolut.sinap.payment.PaymentServiceOperation;
+package com.revolut.sinap.payment;
 
 import java.util.Objects;
 import java.util.UUID;

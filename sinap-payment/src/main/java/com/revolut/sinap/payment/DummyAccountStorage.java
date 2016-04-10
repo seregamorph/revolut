@@ -2,19 +2,20 @@ package com.revolut.sinap.payment;
 
 import com.revolut.sinap.api.ResponseCode;
 
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.*;
 
 /**
  * In-memory thread safe account storage implementation
  */
 public class DummyAccountStorage {
-    private final ConcurrentMap<UUID, TransactionReference> transactions = new ConcurrentHashMap<>();
-    private final ConcurrentMap<Long, Account> accounts;
+    private final Map<UUID, TransactionReference> transactions = Collections.synchronizedMap(new HashMap<>());
+    private final Map<Long, Account> accounts;
 
-    public DummyAccountStorage(ConcurrentMap<Long, Account> accounts) {
-        this.accounts = accounts;
+    /**
+     * @param accounts synchronized Map
+     */
+    public DummyAccountStorage(Map<Long, Account> accounts) {
+        this.accounts = Objects.requireNonNull(accounts, "accounts");
     }
 
     public ResponseCode processPayment(PaymentServiceOperation payment) {
@@ -31,16 +32,12 @@ public class DummyAccountStorage {
 
         // explaining what is going on here
         // we create a TransactionReference object for transactionId key with currentThread reference
-        // then we take a synchronized lock on the object (created in spinlock with computeIfAbsent)
+        // then we take a synchronized lock on the object (created in spinlock with computeIfAbsent or already existing)
         // in the concurrent world in a race another thread can get ahead of getting lock.
         // We check thread, if the same, process transaction
         // if not the same, wait for result
-        // if null, require result immediately (null thread can be only for complete transaction)
+        // if null, require result immediately (null thread can be only for committed/rolled back transaction)
         // set the thread reference to null due to GC issues
-        // after creation "thread" reference can be changed only in synchronized block,
-        // but there is not sync between create + put and get from map (at least, I'm not 100% sure about happens-before
-        // in this case), so there is a synchronized block in constructor.
-        // non-null "thread" reference is a sign, that transaction processing is in progress.
         // the idea is to reduce inter-thread contention and do not make a global lock
         Thread currentThread = Thread.currentThread();
         do {
@@ -69,7 +66,14 @@ public class DummyAccountStorage {
                             evictRef = true;
                             continue;
                         }
-                        return requireCommittedResponseCode(ref);
+                        assert ref.state == TransactionState.COMMITED;
+                        ResponseCode responseCode = ref.transaction.responseCode;
+                        if (responseCode == ResponseCode.SUCCESS) {
+                            return ResponseCode.DUPLICATE_SUCCESS;
+                        } else {
+                            return responseCode;
+                        }
+
                     }
 
                     assert ref.thread == currentThread;
@@ -131,23 +135,6 @@ public class DummyAccountStorage {
         } while (true);
     }
 
-    private static ResponseCode requireCommittedResponseCode(TransactionReference ref) {
-        assert Thread.holdsLock(ref);
-
-        TransactionState state = ref.state;
-        if (state != TransactionState.COMMITED) {
-            throw new RuntimeException("Only committed state is expected " + state);
-        }
-
-        Transaction transaction = ref.transaction;
-        ResponseCode responseCode = transaction.responseCode;
-        if (responseCode == ResponseCode.SUCCESS) {
-            return ResponseCode.DUPLICATE_SUCCESS;
-        } else {
-            return responseCode;
-        }
-    }
-
     private static void checkAccounts(long sourceAccountId, long targetAccountId) {
         if (sourceAccountId <= 0L) {
             throw new IllegalArgumentException("Illegal sourceAccountId " + sourceAccountId);
@@ -205,10 +192,8 @@ public class DummyAccountStorage {
         private Transaction transaction;
 
         TransactionReference(Thread thread) {
-            synchronized (this) {
-                this.thread = thread;
-                this.state = TransactionState.INITIAL;
-            }
+            this.thread = thread;
+            this.state = TransactionState.INITIAL;
         }
 
         private void commit(Transaction transaction) {
@@ -309,9 +294,7 @@ public class DummyAccountStorage {
             this.currency = currency;
             this.lowerLimit = lowerLimit;
             // instances of objects are visible thru ConcurrentHashMap after creation
-            synchronized (this) {
-                this.balance = balance;
-            }
+            this.balance = balance;
         }
 
         public long accountId() {
