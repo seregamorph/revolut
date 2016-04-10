@@ -23,12 +23,11 @@ Key issues
 SINAP is a recursive acronym that means "SINAP is not a processing".
 This name is not my idea, one of a QIWI hackathon projects was called so.
 
-* Simplicity, reliability, explicitness
+* Simple, reliable, explicit
+* Fast
 * self-documenting source code
 * Prevent payment duplicates
 * diagnostics
-* extensibility
-* stateless (REST)
 * minimize dependencies
 * immutable pattern is preffered
 
@@ -52,6 +51,8 @@ The chosen technologies:
 * Netty + basic http server
 * Apache http client (for tests)
 * Jackson
+* Maven
+
 The class structure got not so complicated, I desided not to use alternate DI (like Guice).
 
 Project structure
