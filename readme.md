@@ -93,6 +93,7 @@ TODO list
 * support wildcards instead of regex/pattern in DispatchHttpHandlerBuilder
 * Money class (Currency, amount). Martin Fowler
 * logback logging (now the slf4j simple logger is used)
+* maven-release-plugin
 
 Conclusion
 ------------
