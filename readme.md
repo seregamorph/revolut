@@ -68,9 +68,6 @@ Protocol
 External service protocol receives major units amount (e.g. ("12.34", USD) means 12 dollar 34 cent).
 Internal amount is stored as minor units (fraction digits of currency should be strictly immutable since declaration).
 E.g. (1234, USD) means 12 dollar 34 cent.
-Payment id is of UUID format. This is a for horizontal scaling simplification (in future), data analyze (split data
-to distributed nodes), etc. purposes.
-At the same time it uses central-based ideology of accounts with integer ids and locking.
 
 DummyAccountStorage
 ------------
