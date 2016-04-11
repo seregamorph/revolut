@@ -94,6 +94,7 @@ TODO list
 * Money class (Currency, amount). Martin Fowler
 * logback logging (now the slf4j simple logger is used)
 * maven-release-plugin
+* metrics, monitoring
 
 Conclusion
 ------------
