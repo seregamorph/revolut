@@ -79,7 +79,7 @@ Project building
 
 Project running
 ------------
-```java -Dorg.slf4j.simpleLogger.defaultLogLevel=TRACE -jar revolut-sinap-server.jar```
+```java -Dorg.slf4j.simpleLogger.defaultLogLevel=TRACE -jar revolut-sinap.jar```
 
 TODO list
 ------------
